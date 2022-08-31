@@ -16,7 +16,6 @@ public class Robot {
     public DcMotor LB = null;
     public DcMotor intake = null;
     public DcMotor lift = null;
-    public DcMotor carousel = null;
     //create servo
     public Servo bucket = null;
     public BNO055IMU imu;
@@ -89,9 +88,11 @@ public class Robot {
         LF = hardwareMap.get(DcMotor.class, "LF");
         RB = hardwareMap.get(DcMotor.class, "RB");
         LB = hardwareMap.get(DcMotor.class, "LB");
+        
         intake = hardwareMap.get(DcMotor.class, "intake");
+
         lift = hardwareMap.get(DcMotor.class, "lift");
-        carousel = hardwareMap.get(DcMotor.class, "carousel");
+
         //servo config
         bucket = hardwareMap.get(Servo.class,"bucket");
 
@@ -100,33 +101,38 @@ public class Robot {
         LF.setDirection(DcMotorSimple.Direction.REVERSE);
         RB.setDirection(DcMotorSimple.Direction.REVERSE);
         LB.setDirection(DcMotorSimple.Direction.FORWARD);
+
         intake.setDirection(DcMotorSimple.Direction.REVERSE);
+        
         lift.setDirection(DcMotorSimple.Direction.FORWARD);
-        carousel.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //set motor mode
         RF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         RB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        carousel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         RF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        carousel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //set zero power behavior to stop
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //set motor power to zero
@@ -134,9 +140,10 @@ public class Robot {
         LF.setPower(0);
         RB.setPower(0);
         LB.setPower(0);
+
         intake.setPower(0);
+
         lift.setPower(0);
-        carousel.setPower(0);
 
         BNO055IMU imu;
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();

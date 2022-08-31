@@ -10,41 +10,36 @@ import org.firstinspires.ftc.teamcode.Robots.Paralell_Driver;
 
 @TeleOp
 public class FullRobot extends OpMode {
+    //subsytems
+    private Robot DriverBot;
+    private Carousel carousel;
 
-    Robot DriverBot = new Robot();
-
-
-
-    double vertical;
-    double horizontal;
-    double pivot;
-    int levelIndicator = 3;
-    double slow = 1;
-    int currentPossition = 0;
-    int slidePossition0 = 0;
-    int slidePossition1 = 1000;
-    int slidePossition2 = 1700;
-    int slidePossition3 = 2550;
-    boolean StartThread = true;
-
-
-
-
-
+    //Motor values
+    private double vertical;
+    private double horizontal;
+    private double pivot;
+    private double slow = 1;
+  
+    //Linear slide
+    private int levelIndicator = 0;
 
     @Override
     public void init() {
-        DriverBot.init(hardwareMap);
+        carousel = new Carousel(hardwareMap);
+        DriverBot = new Robot(hardwareMap);
+
+        DriverBot.init(hradwareMap);
+
+        dataInit();
+
+        Driverbot.lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         DriverBot.bucket.setPosition(0.002);
-        DriverBot.lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
     }
-
-
 
 
     public void loop() {
 
+        //Drivetrain
         vertical = -gamepad1.right_stick_y;
         horizontal = gamepad1.right_stick_x;
         pivot = gamepad1.left_stick_x;
@@ -67,36 +62,28 @@ public class FullRobot extends OpMode {
             DriverBot.Toggleintake(-1);
         }
 
-        if(levelIndicator != 0){
-            if(gamepad2.a || gamepad1.a){
-                try {
-                    DriverBot.Dumpbucket();
-                }catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-            }
+        //Carousel
+        if(gamepad1.x){
+            carousel.setCarsouelPower(0.75);
         }
-
-
-        if(gamepad2.b || gamepad1.b){
-            DriverBot.carousel.setPower(-1);
-
-        }
-
         else {
-            DriverBot.carousel.setPower(0);
+            carousel.setCarsouelPower(0.75);
         }
 
-        if(gamepad2.left_bumper || gamepad2.right_bumper || gamepad1.left_bumper || gamepad1.right_bumper) {
+        //Linear slide
+        if(gamepad2.left_bumper || gamepad2.right_bumper || gamepad1.left_bumper || gamepad1.right_bumper) 
+        {
             try {
                 Thread.sleep(50);
             }catch (Exception e){
                 System.out.println(e.getMessage());
             }
 
-            if (gamepad2.left_bumper || gamepad1.left_bumper) {
-                levelIndicator = 0;
+            if (gamepad2.left_bumper || gamepad1.left_bumper) 
+            {
+                this.levelIndicator = 0;
+                update();
+                
                 try {
                     Thread.sleep(50);
                 }catch (Exception e){
@@ -104,7 +91,10 @@ public class FullRobot extends OpMode {
                 }
             }
             if (gamepad2.right_bumper || gamepad1.right_bumper) {
-                levelIndicator = levelIndicator - 1;
+
+                this.levelIndicator -= 1;
+                update();
+
                 try {
                     Thread.sleep(50);
                 }catch (Exception e){
@@ -113,21 +103,43 @@ public class FullRobot extends OpMode {
             }
             if (levelIndicator == -1) {
                 levelIndicator = 3;
+                update();
                 try {
                     Thread.sleep(50);
                 }catch (Exception e){
                     System.out.println(e.getMessage());
                 }
             }
-            DriverBot.LiftSetPossition(levelIndicator);
 
+            if(levelIndicator != 0){
+                if(gamepad2.a || gamepad1.a){
+                    try {
+                        DriverBot.Dumpbucket();
+                    }catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+    
+                }
+            }
+
+            DriverBot.LiftSetPossition(this.levelIndicator);
         }
+
         try {
             Thread.sleep(100);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
+    }
 
+    private void update(){
+
+        telemetry.update();
+    }
+
+    private void dataInit(){
+        telemetry.addData("levelIndicator:",levelIndicator);
+        telemetry.addData("Moving too position:",levelIndicator);
     }
 }
 
