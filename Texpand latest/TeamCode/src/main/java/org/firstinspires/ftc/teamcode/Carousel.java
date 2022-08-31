@@ -9,30 +9,38 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp
 @Disabled
 public class Carousel extends OpMode {
-    DcMotor carousel;
+    //motors
+    private DcMotor carouselMotor;
 
-    @Override
-    public void init() {
-        carousel = hardwareMap.get(DcMotor.class,"carousel");
-        carousel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        telemetry.addData("Status","Initialized");
+    public Carousel(HardwareMap hwMap){
+        hardwareMap = hwMap;
+        
+        carouselMotor = hardwareMap.get(DcMotor.class,"carousel");
+
+        carouselMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        carouselMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        dataInit();
         telemetry.update();
     }
 
     @Override
+    public void init() {
+    }
+
+    @Override
     public void loop() {
+    }
 
-        if(gamepad1.x){
-            carousel.setPower(0.75);
-            telemetry.addData("Status","Motor On");
-            telemetry.update();
-        }
+    public setCarsouelPower(double power)
+    {
+        carouselMotor.setPower(power);
+        telemetry.update();
+    }
 
-        else {
-            carousel.setPower(0);
-            telemetry.addData("Status","Motor Off");
-            telemetry.update();
-        }
-
+    private void dataInit()
+    {
+        telemetry.addData("Carousel Motor","Initialized");
+        telemetry.addData("Status","Motor Off");
     }
 }
