@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Robots;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -50,7 +49,9 @@ public class AutoBot extends Robot{
 
 
 
-    public AutoBot() { }
+    public AutoBot() {
+        super(hardwareMap);
+    }
 
     public void TurnDegrees(int degrees){
         int ticks = (int) (ticksperdegree*degrees);

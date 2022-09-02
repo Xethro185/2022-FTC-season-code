@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Robots;
 
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Driver.FullRobot;
@@ -8,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Driver.FullRobot;
 
 public class Paralell_Driver extends FullRobot implements Runnable {
 
-    Robot DriveBot2 = new Robot();
+    Robot DriveBot2 = new Robot(hardwareMap);
 
     double vertical;
     double horizontal;

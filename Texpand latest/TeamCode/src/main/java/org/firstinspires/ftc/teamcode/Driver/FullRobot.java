@@ -3,13 +3,18 @@ package org.firstinspires.ftc.teamcode.Driver;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.Carousel;
 import org.firstinspires.ftc.teamcode.Robots.Robot;
 import org.firstinspires.ftc.teamcode.Robots.Paralell_Driver;
 
 
 @TeleOp
 public class FullRobot extends OpMode {
+
+    // this is a test to check if Josh's github is working
+
     //subsytems
     private Robot DriverBot;
     private Carousel carousel;
@@ -28,7 +33,7 @@ public class FullRobot extends OpMode {
         carousel = new Carousel(hardwareMap);
         DriverBot = new Robot(hardwareMap);
 
-        DriverBot.init(hradwareMap);
+        DriverBot.init(hardwareMap);
 
         dataInit();
 

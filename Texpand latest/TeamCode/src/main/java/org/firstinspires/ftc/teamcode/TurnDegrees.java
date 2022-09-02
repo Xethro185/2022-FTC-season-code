@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Robots.Robot;
 @Autonomous
 
 public class TurnDegrees extends LinearOpMode {
-    Robot turnbot = new Robot();
+    Robot turnbot = new Robot(hardwareMap);
 
     double ticksperdegree = 12.54;
     int degrees = 90;

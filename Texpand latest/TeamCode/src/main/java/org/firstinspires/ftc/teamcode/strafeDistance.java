@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Robots.Robot;
 @Disabled
 public class strafeDistance extends LinearOpMode {
 
-    Robot StrafeBot = new Robot();
+    Robot StrafeBot = new Robot(hardwareMap);
 
     @Override
     public void runOpMode(){
